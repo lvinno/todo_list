@@ -7,3 +7,7 @@
 1. add task 
 2. delete task
 3. clear task
+
+## update:
+1. add displayMode: all/ finish / unfinish
+2. add finish style
