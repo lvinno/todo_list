@@ -1,5 +1,5 @@
 # A simple Todo List written in react.
-## https://github.com/lvinno/todo_list/build/index.html
+## https://lvinno.github.io/todo_list/build/index.html
 
 ## two components: TodoList and Task
 
