@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import Task from "./Task"
+import {Input, Button, List} from "antd";
 
+const listInputStyle = {
+    width: 500,
+    display: "block",
+    margin: "auto"
+}
 class TodoList extends React.Component{
     constructor(props){
         super(props);
@@ -114,7 +120,7 @@ class TodoList extends React.Component{
         
 
         return (
-            
+           
             <div>
                 <h1>To-Do-List</h1>
                 <h2>displaying {this.state.displayMode}</h2>
@@ -123,13 +129,22 @@ class TodoList extends React.Component{
                         todolist
                     }
                 </ul>
-                <input type="string" onChange={this.handleChange} value={this.state.userInput}></input>
-                <button onClick={this.handleAdd}>Add Todo</button>
-                <button onClick={this.handleClear}>clear</button>
-                <button onClick={this.handleDisplayMode} mode="normal">show all</button>
-                <button onClick={this.handleDisplayMode} mode="finish">show finish</button>
-                <button onClick={this.handleDisplayMode} mode="unfinish">show unfinish</button>
-            </div>
+                <List
+                 header={<div>Header</div>}
+                 footer={<div>Footer</div>}
+                 bordered
+                 dataSource={this.state.list}
+                 renderItem={item => (<List.Item>{item.content}</List.Item>)}
+                  />
+                  
+                <Input style={listInputStyle} type="string" onChange={this.handleChange} value={this.state.userInput}></Input>
+                
+                <Button onClick={this.handleAdd}>>Add Todo</Button>
+                <Button onClick={this.handleClear}>clear</Button>
+                <Button onClick={this.handleDisplayMode} mode="normal">show all</Button>
+                <Button onClick={this.handleDisplayMode} mode="finish">show finish</Button>
+                <Button onClick={this.handleDisplayMode} mode="unfinish">show unfinish</Button>
+             </div>
         )
     }
 }

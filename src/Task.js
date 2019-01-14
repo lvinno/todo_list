@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Button} from "antd";
 
 class Task extends React.Component{
     constructor(props){
@@ -20,7 +21,7 @@ handleFinish(){
 
         return <div>
         <li style={this.props.isFinish==false?{textDecoration:"none",display:"inline-block"}:{textDecoration:"line-through",display:"inline-block"}} onClick={this.handleFinish}>{this.props.content}</li>
-        <button onClick={this.handleDelete}>delete</button>
+        <Button type="danger" onClick={this.handleDelete}>delete</Button>
         </div> 
     }
 }
