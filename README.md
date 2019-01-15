@@ -11,3 +11,4 @@
 ## update:
 1. add displayMode: all/ finish / unfinish
 2. add finish style
+3. try to use antd List to redesign the output.
