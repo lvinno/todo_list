@@ -163,7 +163,6 @@ class TodoList extends React.Component{
             <div style={{backgroundColor:"gray",height:"100%"}}>
                 <h1>Todo-List</h1>
                 <div id="todoTitle" style={{height:"15px",width:"auto"}}/>
-                <h2>displaying {this.state.displayMode}</h2>
                 <List
                  style={Style.todolistStyle}
                  header={<div>Displaying: {this.state.displayMode}</div>}
