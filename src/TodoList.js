@@ -5,15 +5,21 @@ import {init} from "ityped";
 
 const Style = {
     listInputStyle:{    
-        width: "60%",
+        width: "50%",
         display: "block",
         margin: "auto",
+        marginTop: 20,
+        fontSize:"18px"
     },
     todolistStyle:{
         height:"100%",
-        width: "60%",
+        width: "50%",
         margin: "auto",
-        height: "70vh"
+        backgroundColor:"white",
+        fontSize:"18px"
+    },
+    buttonStyle:{
+        marginRight:"10px"
     }
 }
 
@@ -25,8 +31,26 @@ class TodoList extends React.Component{
         this.state={
             displayMode:"normal",
             userInput:"",
-            counter:0,
-            list:[]
+            counter:3,
+            list:[
+                {
+                    id:0,
+                    content:"This is my Todo list app",
+                    isFinish: false
+                },
+                {
+                    id:1,
+                    content:"You can try to click the task to finish it",
+                    isFinish: false
+                }
+                ,
+                {
+                    id:2,
+                    content:"And try different buttons to display different kind of tasks",
+                    isFinish: false
+                }
+
+            ]
         }
         
         this.handleAdd = this.handleAdd.bind(this);
@@ -143,7 +167,7 @@ class TodoList extends React.Component{
                 <List
                  style={Style.todolistStyle}
                  header={<div>Displaying: {this.state.displayMode}</div>}
-                 footer={<div>Todolist Version: v0.0.3</div>}
+                 footer={<div style={{marginBottom:"20px"}}>Todolist Version: v0.0.3</div>}
                  bordered
                  dataSource={todolist}
                  renderItem={item => (
@@ -152,12 +176,13 @@ class TodoList extends React.Component{
                   />
                   
                 <Input style={Style.listInputStyle} type="string" onChange={this.handleChange} value={this.state.userInput}></Input>
-                
-                <Button onClick={this.handleAdd}>>Add Todo</Button>
-                <Button onClick={this.handleClear}>clear</Button>
-                <Button onClick={this.handleDisplayMode} mode="normal">show all</Button>
-                <Button onClick={this.handleDisplayMode} mode="finish">show finish</Button>
-                <Button onClick={this.handleDisplayMode} mode="unfinish">show unfinish</Button>
+                <div style={{marginTop: 10}}>
+                <Button style={Style.buttonStyle} onClick={this.handleAdd}>>Add Todo</Button>
+                <Button style={Style.buttonStyle} onClick={this.handleClear}>clear</Button>
+                <Button style={Style.buttonStyle} onClick={this.handleDisplayMode} mode="normal">show all</Button>
+                <Button style={Style.buttonStyle} onClick={this.handleDisplayMode} mode="unfinish">show unfinish</Button>
+                <Button style={Style.buttonStyle} onClick={this.handleDisplayMode} mode="finish">show finish</Button>
+                </div>
              </div>
         )
     }

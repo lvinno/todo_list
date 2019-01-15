@@ -20,7 +20,8 @@ handleFinish(){
     render(){
 
         return <div style={{width:"100%"}}>
-        <li style={this.props.isFinish==false?{display:"inline-block",width:"80%",textDecoration:"none",textAlign:"left"}:{display:"inline-block",textDecoration:"line-through",textAlign:"left"}} onClick={this.handleFinish}>{this.props.content}</li>
+        <li style={this.props.isFinish==false?{display:"inline-block",width:"80%",textDecoration:"none",textAlign:"left"}:
+        {display:"inline-block",textDecoration:"line-through",textAlign:"left",width:"80%"}} onClick={this.handleFinish}>{this.props.content}</li>
         <Button type="danger" size="small" onClick={this.handleDelete} style={{display:"inline-block",marginRight:"0"}}>delete</Button>
         </div> 
     }
