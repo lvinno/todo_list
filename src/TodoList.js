@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Task from "./Task"
 import {Input, Button, List} from "antd";
+import {init} from "ityped";
 
 const Style = {
     listInputStyle:{
@@ -32,6 +33,10 @@ class TodoList extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
         this.handleDisplayMode = this.handleDisplayMode.bind(this);
+    }
+    componentDidMount(){
+        const todoTitle = document.querySelector('#todoTitle')
+      init(todoTitle, { showCursor: false, strings: ['This is my Todo-list', 'Enjoy!' ],backDelay:  1500, })
     }
     handleAdd(){
         let newlist = this.state.list.concat({
@@ -130,7 +135,8 @@ class TodoList extends React.Component{
         return (
            
             <div>
-                <h1>To-Do-List</h1>
+                <h1>Todo-List</h1>
+                <div id="todoTitle" style={{height:"15px",width:"auto"}}/>
                 <h2>displaying {this.state.displayMode}</h2>
                 <List
                  style={Style.todolistStyle}
