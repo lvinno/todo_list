@@ -4,14 +4,16 @@ import {Input, Button, List} from "antd";
 import {init} from "ityped";
 
 const Style = {
-    listInputStyle:{
-        width: 500,
+    listInputStyle:{    
+        width: "60%",
         display: "block",
-        margin: "auto"},
+        margin: "auto",
+    },
     todolistStyle:{
-        width: 500,
-        display: "block",
-        margin: "auto"
+        height:"100%",
+        width: "60%",
+        margin: "auto",
+        height: "70vh"
     }
 }
 
@@ -134,7 +136,7 @@ class TodoList extends React.Component{
 
         return (
            
-            <div>
+            <div style={{backgroundColor:"gray",height:"100%"}}>
                 <h1>Todo-List</h1>
                 <div id="todoTitle" style={{height:"15px",width:"auto"}}/>
                 <h2>displaying {this.state.displayMode}</h2>
