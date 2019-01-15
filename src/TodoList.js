@@ -2,11 +2,19 @@ import React, {Component} from 'react';
 import Task from "./Task"
 import {Input, Button, List} from "antd";
 
-const listInputStyle = {
-    width: 500,
-    display: "block",
-    margin: "auto"
+const Style = {
+    listInputStyle:{
+        width: 500,
+        display: "block",
+        margin: "auto"},
+    todolistStyle:{
+        width: 500,
+        display: "block",
+        margin: "auto"
+    }
 }
+
+
 class TodoList extends React.Component{
     constructor(props){
         super(props);
@@ -124,20 +132,18 @@ class TodoList extends React.Component{
             <div>
                 <h1>To-Do-List</h1>
                 <h2>displaying {this.state.displayMode}</h2>
-                <ul>
-                    {
-                        todolist
-                    }
-                </ul>
                 <List
-                 header={<div>Header</div>}
-                 footer={<div>Footer</div>}
+                 style={Style.todolistStyle}
+                 header={<div>Displaying: {this.state.displayMode}</div>}
+                 footer={<div>Todolist Version: v0.0.3</div>}
                  bordered
-                 dataSource={this.state.list}
-                 renderItem={item => (<List.Item>{item.content}</List.Item>)}
+                 dataSource={todolist}
+                 renderItem={item => (
+                 <List.Item>{item}</List.Item>
+                 )}
                   />
                   
-                <Input style={listInputStyle} type="string" onChange={this.handleChange} value={this.state.userInput}></Input>
+                <Input style={Style.listInputStyle} type="string" onChange={this.handleChange} value={this.state.userInput}></Input>
                 
                 <Button onClick={this.handleAdd}>>Add Todo</Button>
                 <Button onClick={this.handleClear}>clear</Button>
