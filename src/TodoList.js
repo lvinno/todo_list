@@ -2,44 +2,23 @@ import React, {Component} from 'react';
 import Task from "./Task"
 import {Input, Button, List} from "antd";
 import {init} from "ityped";
+import Store from './store'
 
 
 class TodoList extends React.Component{
     constructor(props){
         super(props);
 
-        this.state={
-            displayMode:"normal",
-            windowSize:0,
-            userInput:"",
-            counter:3,
-            list:[
-                {
-                    id:0,
-                    content:"This is my Todo list app",
-                    isFinish: false
-                },
-                {
-                    id:1,
-                    content:"You can try to click the task to finish it",
-                    isFinish: false
-                }
-                ,
-                {
-                    id:2,
-                    content:"And try different buttons to display different kind of tasks",
-                    isFinish: false
-                }
-
-            ]
-        }
-        
+        this.state= Store.getState();
         this.handleAdd = this.handleAdd.bind(this);
         this.handleClear = this.handleClear.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
         this.handleFinish = this.handleFinish.bind(this);
         this.handleDisplayMode = this.handleDisplayMode.bind(this);
+        this.handleChangeState = this.handleChangeState.bind(this);
+
+        Store.subscribe(this.handleChangeState);
     }
     componentDidMount(){
         const todoTitle = document.querySelector('#todoTitle')
@@ -50,84 +29,71 @@ class TodoList extends React.Component{
       window.addEventListener('resize', this.handleResize.bind(this))
     }
 
+    handleChangeState(){
+        this.setState(Store.getState());
+    }
+
     handleResize(e){
         console.log('浏览器窗口大小改变事件', e.target.innerWidth)
-        this.setState(
-            {windowSize:e.target.innerWidth}
-    )
+        const action = {
+            type: "window_size_change",
+            value: e.target.innerWidth
+        }
+        Store.dispatch(action);
     }
 
     handleAdd(){
-        let newlist = this.state.list.concat({
-            id: this.state.counter,
-            content:this.state.userInput,
-            isFinish:false
-            });
-        console.log(newlist);
-        this.setState({
-            counter:this.state.counter+1,
-            list: newlist,
-            userInput:''
-        }        
-    )
+        const action = {
+            type: 'add_todo_task',
+            value: {
+                id: this.state.counter,
+                content:this.state.userInput,
+                isFinish:false
+                }
+        }
+        Store.dispatch(action);
     }
 
     handleClear(){
-        this.setState({
-            list: []
-        })
+        const action = {
+            type: "clear_all_task",
+            value: ""
+        }
+        Store.dispatch(action);
     }
 
     
     handleChange(event){
-        this.setState(
-            {
-                userInput:event.target.value
-            }
-        )
+         const action = {
+             type: "user_input_change",
+             value: event.target.value
+         }
+        Store.dispatch(action);
     }
 
    handleDelete(taskId){
-       console.log(taskId)
-       let newlist = this.state.list.filter(
-           (item)=>{
-               return item.id !== taskId;
-           }
-       )
-        console.log(newlist);
-       this.setState(
-           {
-               list: newlist
-           }
-       )
+        const action = {
+            type: "task_delete",
+            value: taskId,
+        }
+        Store.dispatch(action);
    }
 
    handleFinish(taskId){
-       console.log("success");
-       let newlist = this.state.list.map((item)=>{
-           if(item.id === taskId){
-               let newitem = {
-                   id:item.id,
-                   content:item.content,
-                   isFinish:!item.isFinish
-               }
-                return newitem;
-            }else{
-                return item;
+        const action = {
+            type: "finish_mode",
+            value: taskId
         }
-       });
-       
-    this.setState({
-        list:newlist
-    })      
+        Store.dispatch(action);
    }
 
    handleDisplayMode(event){
-       console.log(event.target.getAttribute("mode"))
-       this.setState({
-        displayMode:event.target.getAttribute("mode")
-       })
-       
+       const action = {
+           type: "display_mode_change",
+           value: event.target.getAttribute("mode")
+       }
+
+       Store.dispatch(action);
    }
    
     render(){
@@ -175,11 +141,11 @@ class TodoList extends React.Component{
         }
 
         const todolist = 
-        this.state.displayMode=="normal"?this.state.list.map((item)=>{
+        this.state.displayMode === "normal"?this.state.list.map((item)=>{
             return<Task taskId={item.id} content={item.content} handleDelete={this.handleDelete} 
        handleFinish={this.handleFinish} isFinish={item.isFinish}/>
         }):
-        this.state.displayMode=="finish"?this.state.list.filter((item)=>{
+        this.state.displayMode === "finish"?this.state.list.filter((item)=>{
             return item.isFinish === true;
         }).map((item)=>{
             return<Task taskId={item.id} content={item.content} handleDelete={this.handleDelete} 
